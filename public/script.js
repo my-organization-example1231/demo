@@ -6,7 +6,7 @@ function createForm(conf) {
         var element = document.getElementById(`${conf?.scriptId}`);
         div.innerHTML = `<iframe src=https://form.crmone.com/form/${conf?.formId} frameborder="0"
                     allowtransparency="true" loading="lazy" width="100%" height="100%"></iframe>`;
-        element.parentNode.appendChild(div);
+        element.insertAdjacentElement('afterend', div);
     });
 }
 
