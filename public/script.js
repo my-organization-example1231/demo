@@ -16,7 +16,7 @@ function createForm(conf) {
             return new Promise(resolve => {
                 setTimeout(() => {
                     resolve(checkResize());
-                }, 500); // Adjust the delay as needed
+                }, 1000); // Adjust the delay as needed
             });
         }
         isParentWindowResized().then(resized => {
