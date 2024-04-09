@@ -1,10 +1,14 @@
+var initialWidth = 0;
+var initialHeight = 0;
+if(document.currentScript){
+ initialWidth = window.innerWidth;
+ initialHeight = window.innerHeight;
+}
 function createForm(conf) {
     window.addEventListener('load', function () {
         const div = document.createElement('div');
         div.style.height = '100%';
         function isParentWindowResized() {
-            var initialWidth = window.innerWidth;
-            var initialHeight = window.innerHeight;
         
             // Function to check if the window has been resized after a short delay
             function checkResize() {
