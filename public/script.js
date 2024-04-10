@@ -24,8 +24,7 @@ function createForm(conf) {
             });
         }
         isParentWindowResized().then(resized => {
-            var url = window.location.href.toLowerCase();
-            if (!resized && !url.includes("pagespeed") && !url.includes("webpagetest")) {
+            if (!resized) {
                 div.innerHTML = `<iframe src=https://form.crmone.com/form/${conf?.formId} frameborder="0"
                             allowtransparency="true" loading="lazy" width="100%" height="100%"></iframe>`;
             } else {
