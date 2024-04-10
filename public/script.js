@@ -3,8 +3,7 @@ function createForm(conf) {
         const div = document.createElement('div');
         div.style.height = '100%';
         var element = document.getElementById(`${conf?.scriptId}`);
-        // element.insertAdjacentElement('afterend', div);
-        document.body.appendChild(div)
+        element.insertAdjacentElement('afterend', div);
         function isParentWindowResized() {
             var initialWidth = window.innerWidth;
             var initialHeight = window.innerHeight;
