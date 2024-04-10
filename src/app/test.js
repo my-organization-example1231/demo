@@ -33,7 +33,8 @@ export default function Test() {
           var currentScriptElement = document.currentScript;
           createForm({
             formId: "65d2f9f3491ddbceffd601a6",
-            callingElement: currentScriptElement
+            callingElement: currentScriptElement,
+            mode: "crmone"
           });
         </script>
     ` }} />
@@ -92,9 +93,10 @@ export default function Test() {
       <div style={{height : "700px", width : "500px"}} dangerouslySetInnerHTML={{ __html: `
          <script>
          var currentScriptElement = document.currentScript;
-         createForm({
-           formId: "65d2f9f3491ddbceffd601a6",
-           callingElement: currentScriptElement
+         createCalendar({
+          calendarId: "6606870bc3f359e04dd06931",
+           callingElement: currentScriptElement,
+           mode: "crmone"
          });
        </script>
     ` }} />
