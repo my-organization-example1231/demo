@@ -3,14 +3,14 @@ function createForm(conf) {
         const div = document.createElement('div');
         div.style.height = '100%';
         var element = document.getElementById(`${conf?.scriptId}`);
-        element.insertAdjacentElement('afterend', div);
+        // element.insertAdjacentElement('afterend', div);
+        document.body.appendChild(div)
         function isParentWindowResized() {
             var initialWidth = window.innerWidth;
             var initialHeight = window.innerHeight;
         
             // Function to check if the window has been resized after a short delay
             function checkResize() {
-                console.log("heightcheck",initialWidth,initialHeight,window.innerWidth,window.innerHeight)
                 if (window.innerWidth !== initialWidth || window.innerHeight !== initialHeight) {
                     return true; // Window has been resized
                 }
