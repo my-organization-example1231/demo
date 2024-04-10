@@ -28,7 +28,7 @@ export default function Test() {
           </a>
         </div>
       </div>
-      <div style={{height : "700px", width : "500px"}} dangerouslySetInnerHTML={{ __html: `
+      <div style={{height : "710px", width : "500px"}} dangerouslySetInnerHTML={{ __html: `
         <script id="65d2f9f3491ddbceffd601a6">
           createForm({
             formId: "65d2f9f3491ddbceffd601a6",
