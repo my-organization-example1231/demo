@@ -1,13 +1,16 @@
 function createForm(conf) {
     window.addEventListener('load', function () {
+        const div = document.createElement('div');
+        div.style.height = '100%';
+        var element = document.getElementById(`${conf?.scriptId}`);
+        element.insertAdjacentElement('afterend', div);
         function isParentWindowResized() {
             var initialWidth = window.innerWidth;
             var initialHeight = window.innerHeight;
-
-            console.log("initialHeight",initialHeight,initialWidth)
         
             // Function to check if the window has been resized after a short delay
             function checkResize() {
+                console.log("heightcheck",initialWidth,initialHeight,window.innerWidth,window.innerHeight)
                 if (window.innerWidth !== initialWidth || window.innerHeight !== initialHeight) {
                     return true; // Window has been resized
                 }
@@ -23,12 +26,8 @@ function createForm(conf) {
         }
         isParentWindowResized().then(resized => {
             if (!resized) {
-                const div = document.createElement('div');
-                div.style.height = '100%';
-                var element = document.getElementById(`${conf?.scriptId}`);
                 div.innerHTML = `<iframe src=https://form.crmone.com/form/${conf?.formId} frameborder="0"
                             allowtransparency="true" loading="lazy" width="100%" height="100%"></iframe>`;
-                element.insertAdjacentElement('afterend', div);
             } else {
                 console.log('Iframe not loaded as parent window was resized.');
             }
