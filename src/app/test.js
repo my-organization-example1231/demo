@@ -29,10 +29,11 @@ export default function Test() {
         </div>
       </div>
       <div style={{height : "710px", width : "500px"}} dangerouslySetInnerHTML={{ __html: `
-        <script id="65d2f9f3491ddbceffd601a6">
+        <script>
+          var currentScriptElement = document.currentScript;
           createForm({
             formId: "65d2f9f3491ddbceffd601a6",
-            scriptId : "65d2f9f3491ddbceffd601a6"
+            callingElement: currentScriptElement
           });
         </script>
     ` }} />
@@ -89,12 +90,13 @@ export default function Test() {
         </a>
       </div>
       <div style={{height : "700px", width : "500px"}} dangerouslySetInnerHTML={{ __html: `
-        <script  id="65d2f9f3491ddbceffd601a6123">
-          createForm({
-            formId: "65d2f9f3491ddbceffd601a6",
-            scriptId : "65d2f9f3491ddbceffd601a6123"
-          });
-        </script>
+         <script>
+         var currentScriptElement = document.currentScript;
+         createForm({
+           formId: "65d2f9f3491ddbceffd601a6",
+           callingElement: currentScriptElement
+         });
+       </script>
     ` }} />
     </main>
   );
