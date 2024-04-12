@@ -19,9 +19,9 @@ function isParentWindowResized() {
 }
 function createForm(conf) {
     window.addEventListener('load', function () {
-        var element = conf.callingElement;
+        var element = conf?.callingElement;
         const mode = conf?.mode || "crmone";
-        if(element){
+        if(element || conf?.form_type){
             const div = document.createElement('div');
             var dialog = document.createElement('div');
             var overlay = document.createElement('div');
