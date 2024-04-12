@@ -35,7 +35,7 @@ export default function Test() {
             formId: "65f3ec9e8c0c1ff409a8fd35",
             callingElement: currentScriptElement,
             mode: "trendev",
-            form_type : "left_box",
+            form_type : "banner",
             customHeight : "315px"
           });
         </script>

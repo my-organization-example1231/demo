@@ -117,7 +117,7 @@ function createForm(conf) {
                 if (!resized) {
                     if(conf?.form_type == "left_box" || conf?.form_type == "right_box" || conf?.form_type == "banner"){
                         setTimeout(() => {
-                            div.style.transform = conf?.form_type == "banner" ? "translate(-50%,0%)" : "translateY(0%)";
+                            div.style.transform = conf?.form_type == "banner" ? "translateY(0%)" : "translateY(0%)";
                         }, 500);
                     }
                     if(conf?.form_type == "popup"){
@@ -137,7 +137,11 @@ function createForm(conf) {
                     iframeElement.setAttribute("height","100%")
                     iframeElement.style.minHeight = "280px"
                     divToSet.appendChild(iframeElement);
-                    element.insertAdjacentElement('afterend', divToSet);
+                    if(conf?.form_type){
+                        document.body.appendChild(divToSet)
+                    }else{
+                        element.insertAdjacentElement('afterend', divToSet);
+                    }
                     if(conf?.form_type == "popup"){
                         document.body.appendChild(overlay)
                     }
