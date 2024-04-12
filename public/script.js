@@ -139,13 +139,12 @@ function createForm(conf) {
                     divToSet.appendChild(iframeElement);
                     if(conf?.form_type){
                         document.body.appendChild(divToSet)
+                        if(conf?.form_type == "popup"){
+                            document.body.appendChild(overlay)
+                        }
                     }else{
                         element.insertAdjacentElement('afterend', divToSet);
                     }
-                    if(conf?.form_type == "popup"){
-                        document.body.appendChild(overlay)
-                    }
-                   
                 } else {
                     console.log('Iframe not loaded as parent window was resized.');
                 }
