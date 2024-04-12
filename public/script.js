@@ -72,9 +72,9 @@ function createForm(conf) {
                 div.style.minHeight = "280px";
                 div.style.position = 'fixed';
                 div.style.background = '#fff';
-                div.style.borderTopWidth = "5px";
                 div.style.borderTopStyle = "solid";
                 div.style.borderColor = "#3288E6";
+                div.style.border = "5px 0 0 0 0"
                 div.style.left = (conf?.form_type == "right_box" || conf?.form_type == "banner") ? "auto" : 0;
                 div.style.right = (conf?.form_type == "left_box" || conf?.form_type == "banner") ? "auto" : 0;
                 div.style.bottom = conf?.form_type == "banner" ? "auto" :0;
@@ -95,7 +95,7 @@ function createForm(conf) {
                 dialog.style.maxWidth = '400px';
                 dialog.style.position = 'fixed';
                 dialog.style.background = '#fff';
-                dialog.style.borderTopWidth = "5px";
+                dialog.style.border = "5px 0 0 0 0"
                 dialog.style.borderTopStyle = "solid";
                 dialog.style.borderColor = "#3288E6";
                 dialog.style.zIndex = 10001;
