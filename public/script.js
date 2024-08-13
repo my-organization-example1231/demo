@@ -159,7 +159,7 @@ function createForm(conf) {
     });
 }
 function createCalendar(conf) {
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if(element){
