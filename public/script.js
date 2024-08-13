@@ -130,7 +130,7 @@ function createForm(conf) {
                     }
                     const divToSet = conf?.form_type == "popup" ? dialog : div;
                     var iframeElement = document.createElement("iframe");
-                    iframeElement.setAttribute("src",`https://share.hsforms.com/1YCGoTe6CSrmT2cpif7zEQwrk6r0`)
+                    iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
                     iframeElement.setAttribute("frameborder","0")
                     iframeElement.setAttribute("allowtransparency","true")
                     // iframeElement.setAttribute("loading","lazy")
