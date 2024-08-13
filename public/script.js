@@ -133,7 +133,7 @@ function createForm(conf) {
                     iframeElement.setAttribute("src",`https://share.hsforms.com/1YCGoTe6CSrmT2cpif7zEQwrk6r0`)
                     iframeElement.setAttribute("frameborder","0")
                     iframeElement.setAttribute("allowtransparency","true")
-                    iframeElement.setAttribute("loading","lazy")
+                    // iframeElement.setAttribute("loading","lazy")
                     iframeElement.setAttribute("width","100%")
                     iframeElement.setAttribute("height","100%")
                     iframeElement.setAttribute("title",`form-${conf?.formId}`)
