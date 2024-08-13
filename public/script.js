@@ -166,14 +166,8 @@ function createCalendar(conf) {
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
-            isParentWindowResized().then(resized => {
-                if (!resized) {
-                    div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
-                                allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
-                } else {
-                    console.log('content not loaded as parent window was resized.');
-                }
-            });
+            div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+            allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
         }else{
             console.log('element not found');
         }
