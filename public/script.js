@@ -1,3 +1,4 @@
+const DOMAIN = "crmone.com"
 function isParentWindowResized() {
     var initialWidth = window.innerWidth;
     var initialHeight = window.innerHeight;
@@ -20,7 +21,7 @@ function isParentWindowResized() {
 function createForm(conf) {
     window.addEventListener('load', function () {
         var element = conf?.callingElement;
-        const mode = conf?.mode || "crmone";
+        const mode = conf?.mode || "trendev";
         if(element || conf?.form_type){
             const div = document.createElement('div');
             var dialog = document.createElement('div');
@@ -67,7 +68,7 @@ function createForm(conf) {
             }
             if(conf?.form_type == "left_box"|| conf?.form_type == "right_box" || conf?.form_type == "banner"){
                 div.style.width = '100%';
-                div.style.maxHeight = conf?.form_type == "banner" ? "50%" :'70%';;
+                div.style.maxHeight = conf?.form_type == "banner" ? "64%" :'70%';;
                 div.style.maxWidth = conf?.form_type == "banner" ? "100%" :'400px';
                 div.style.minHeight = "280px";
                 div.style.position = 'fixed';
@@ -91,7 +92,7 @@ function createForm(conf) {
 
                 dialog.style.width = '100%';
                 dialog.style.minHeight = "280px";
-                dialog.style.maxHeight = '50%';
+                dialog.style.maxHeight = '64%';
                 dialog.style.maxWidth = '400px';
                 dialog.style.position = 'fixed';
                 dialog.style.background = '#fff';
@@ -129,12 +130,13 @@ function createForm(conf) {
                     }
                     const divToSet = conf?.form_type == "popup" ? dialog : div;
                     var iframeElement = document.createElement("iframe");
-                    iframeElement.setAttribute("src",`https://form.${mode == "crmone" ? "crmone.com" : "trendev.in"}/form/${conf?.formId}`)
+                    iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
                     iframeElement.setAttribute("frameborder","0")
                     iframeElement.setAttribute("allowtransparency","true")
                     iframeElement.setAttribute("loading","lazy")
                     iframeElement.setAttribute("width","100%")
                     iframeElement.setAttribute("height","100%")
+                    iframeElement.setAttribute("title",`form-${conf?.formId}`)
                     iframeElement.style.minHeight = "280px"
                     divToSet.appendChild(iframeElement);
                     if(conf?.form_type){
@@ -143,10 +145,12 @@ function createForm(conf) {
                             document.body.appendChild(overlay)
                         }
                     }else{
+                        divToSet.style.width = '100%';
+                        divToSet.style.height = '100%';
                         element.insertAdjacentElement('afterend', divToSet);
                     }
                 } else {
-                    console.log('Iframe not loaded as parent window was resized.');
+                    console.log('content not loaded as parent window was resized.');
                 }
             });
         }else{
@@ -157,17 +161,17 @@ function createForm(conf) {
 function createCalendar(conf) {
     window.addEventListener('load', function () {
         var element = conf.callingElement;
-        const mode = conf?.mode || "crmone";
+        const mode = conf?.mode || "trendev";
         if(element){
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
             isParentWindowResized().then(resized => {
                 if (!resized) {
-                    div.innerHTML = `<iframe src=https://calendar.${mode == "crmone" ? "crmone.com" : "trendev.in"}/calendar/${conf?.calendarId} frameborder="0"
-                                allowtransparency="true" loading="lazy" width="100%" height="100%"></iframe>`;
+                    div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+                                allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
                 } else {
-                    console.log('Iframe not loaded as parent window was resized.');
+                    console.log('content not loaded as parent window was resized.');
                 }
             });
         }else{
@@ -178,17 +182,17 @@ function createCalendar(conf) {
 function createSurvey(conf) {
     window.addEventListener('load', function () {
         var element = conf.callingElement;
-        const mode = conf?.mode || "crmone";
+        const mode = conf?.mode || "trendev";
         if(element){
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
             isParentWindowResized().then(resized => {
                 if (!resized) {
-                    div.innerHTML = `<iframe src=https://survey.${mode == "crmone" ? "crmone.com" : "trendev.in"}/survey/${conf?.surveyId} frameborder="0"
-                                allowtransparency="true" loading="lazy" width="100%" height="100%"></iframe>`;
+                    div.innerHTML = `<iframe src=https://survey.${DOMAIN}/survey/${conf?.surveyId} frameborder="0"
+                                allowtransparency="true" loading="lazy" width="100%" height="100%" title="survey-${conf?.surveyId}"></iframe>`;
                 } else {
-                    console.log('Iframe not loaded as parent window was resized.');
+                    console.log('content not loaded as parent window was resized.');
                 }
             });
         }else{
@@ -196,3 +200,60 @@ function createSurvey(conf) {
         }
     });
 }
+
+//need to add
+function createBot(conf) {
+    function loadBot(){
+        const div = document.createElement('div');
+        div.style.position = "fixed";
+        div.style.overflow = "hidden"
+        div.style.border = "none"
+        div.style.bottom = "0";
+        div.style.zIndex = "9999"
+        div.style.width = "30px";
+        div.style.height = "30px";
+        div.id = "chatbot-iframe-container"
+        div.className = "chatbotIframeContainer"
+        const contactDetail = conf.contactDetail ? JSON.stringify(conf.contactDetail) : undefined
+
+        document.body.appendChild(div);
+        let query = contactDetail ? `?contactDetail=${encodeURIComponent(contactDetail)}`  : "" 
+        
+        isParentWindowResized().then(resized => {
+            if (!resized) {
+                div.innerHTML = `
+                                <iframe id='chatbot-iframe' src='https://chatbot.${DOMAIN}/chatbot/${conf?.botId}${query}'  
+                                    frameborder="0" allowtransparency="true" height="100%" width="100%">
+                                </iframe>
+                                `;
+            } else {
+                console.log('content not loaded as parent window was resized.');
+            }
+        });
+    }
+
+   
+    window.addEventListener('message', function (event) {
+        const div = document.getElementById("chatbot-iframe-container")
+        div.style.height = event?.data?.height + "px";
+        div.style.width = event?.data?.width + "px";
+        div.style.position = "fixed";
+        if (event.data.right !== undefined) {
+            div.style.right = 0
+        } else if (event.data.left !== undefined) {
+            console.log("left", 0);
+            div.style.left = 0
+        }
+    })
+
+    if(conf?.internalLoad)
+    {
+        loadBot()
+        return;
+    }
+
+    window.addEventListener('load', function () {
+        loadBot()
+    });
+}
+
