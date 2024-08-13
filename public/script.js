@@ -114,45 +114,39 @@ function createForm(conf) {
                 overlay.style.top = 0;
                 overlay.style.left = 0;
             }
-            isParentWindowResized().then(resized => {
-                if (!resized) {
-                    if(conf?.form_type == "left_box" || conf?.form_type == "right_box" || conf?.form_type == "banner"){
-                        setTimeout(() => {
-                            div.style.transform = conf?.form_type == "banner" ? "translateY(0%)" : "translateY(0%)";
-                        }, 500);
-                    }
-                    if(conf?.form_type == "popup"){
-                        setTimeout(() => {
-                            dialog.style.transform = "translate(-50%, -50%)";
-                            dialog.style.top = "50%";
-                            dialog.style.left = "50%";
-                        }, 500);
-                    }
-                    const divToSet = conf?.form_type == "popup" ? dialog : div;
-                    var iframeElement = document.createElement("iframe");
-                    iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
-                    iframeElement.setAttribute("frameborder","0")
-                    iframeElement.setAttribute("allowtransparency","true")
-                    // iframeElement.setAttribute("loading","lazy")
-                    iframeElement.setAttribute("width","100%")
-                    iframeElement.setAttribute("height","100%")
-                    iframeElement.setAttribute("title",`form-${conf?.formId}`)
-                    iframeElement.style.minHeight = "280px"
-                    divToSet.appendChild(iframeElement);
-                    if(conf?.form_type){
-                        document.body.appendChild(divToSet)
-                        if(conf?.form_type == "popup"){
-                            document.body.appendChild(overlay)
-                        }
-                    }else{
-                        divToSet.style.width = '100%';
-                        divToSet.style.height = '100%';
-                        element.insertAdjacentElement('afterend', divToSet);
-                    }
-                } else {
-                    console.log('content not loaded as parent window was resized.');
+            if(conf?.form_type == "left_box" || conf?.form_type == "right_box" || conf?.form_type == "banner"){
+                setTimeout(() => {
+                    div.style.transform = conf?.form_type == "banner" ? "translateY(0%)" : "translateY(0%)";
+                }, 500);
+            }
+            if(conf?.form_type == "popup"){
+                setTimeout(() => {
+                    dialog.style.transform = "translate(-50%, -50%)";
+                    dialog.style.top = "50%";
+                    dialog.style.left = "50%";
+                }, 500);
+            }
+            const divToSet = conf?.form_type == "popup" ? dialog : div;
+            var iframeElement = document.createElement("iframe");
+            iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
+            iframeElement.setAttribute("frameborder","0")
+            iframeElement.setAttribute("allowtransparency","true")
+            iframeElement.setAttribute("loading","lazy")
+            iframeElement.setAttribute("width","100%")
+            iframeElement.setAttribute("height","100%")
+            iframeElement.setAttribute("title",`form-${conf?.formId}`)
+            iframeElement.style.minHeight = "280px"
+            divToSet.appendChild(iframeElement);
+            if(conf?.form_type){
+                document.body.appendChild(divToSet)
+                if(conf?.form_type == "popup"){
+                    document.body.appendChild(overlay)
                 }
-            });
+            }else{
+                divToSet.style.width = '100%';
+                divToSet.style.height = '100%';
+                element.insertAdjacentElement('afterend', divToSet);
+            }
         }else{
             console.log('element not found');
         }
