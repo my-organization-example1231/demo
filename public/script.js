@@ -195,7 +195,7 @@ function createSurvey(conf) {
                     console.log('content not loaded as parent window was resized.');
                 }
             });
-        }else{
+        }else{ 
             console.log('element not found');
         }
     });
