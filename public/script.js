@@ -19,6 +19,7 @@ function isParentWindowResized() {
     });
 }
 function createForm(conf) {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf?.callingElement;
         const mode = conf?.mode || "trendev";
         if(element || conf?.form_type){
@@ -155,6 +156,7 @@ function createForm(conf) {
         }else{
             console.log('element not found');
         }
+    });
 }
 function createCalendar(conf) {
     window.addEventListener('load', function () {
