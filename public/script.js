@@ -19,7 +19,7 @@ function isParentWindowResized() {
     });
 }
 function createForm(conf) {
-    window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener('load', function () {
         var element = conf?.callingElement;
         const mode = conf?.mode || "trendev";
         if(element || conf?.form_type){
@@ -114,54 +114,66 @@ function createForm(conf) {
                 overlay.style.top = 0;
                 overlay.style.left = 0;
             }
-            if(conf?.form_type == "left_box" || conf?.form_type == "right_box" || conf?.form_type == "banner"){
-                setTimeout(() => {
-                    div.style.transform = conf?.form_type == "banner" ? "translateY(0%)" : "translateY(0%)";
-                }, 500);
-            }
-            if(conf?.form_type == "popup"){
-                setTimeout(() => {
-                    dialog.style.transform = "translate(-50%, -50%)";
-                    dialog.style.top = "50%";
-                    dialog.style.left = "50%";
-                }, 500);
-            }
-            const divToSet = conf?.form_type == "popup" ? dialog : div;
-            var iframeElement = document.createElement("iframe");
-            iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
-            iframeElement.setAttribute("frameborder","0")
-            iframeElement.setAttribute("allowtransparency","true")
-            iframeElement.setAttribute("loading","lazy")
-            iframeElement.setAttribute("width","100%")
-            iframeElement.setAttribute("height","100%")
-            iframeElement.setAttribute("title",`form-${conf?.formId}`)
-            iframeElement.style.minHeight = "280px"
-            divToSet.appendChild(iframeElement);
-            if(conf?.form_type){
-                document.body.appendChild(divToSet)
-                if(conf?.form_type == "popup"){
-                    document.body.appendChild(overlay)
+            isParentWindowResized().then(resized => {
+                if (!resized) {
+                    if(conf?.form_type == "left_box" || conf?.form_type == "right_box" || conf?.form_type == "banner"){
+                        setTimeout(() => {
+                            div.style.transform = conf?.form_type == "banner" ? "translateY(0%)" : "translateY(0%)";
+                        }, 500);
+                    }
+                    if(conf?.form_type == "popup"){
+                        setTimeout(() => {
+                            dialog.style.transform = "translate(-50%, -50%)";
+                            dialog.style.top = "50%";
+                            dialog.style.left = "50%";
+                        }, 500);
+                    }
+                    const divToSet = conf?.form_type == "popup" ? dialog : div;
+                    var iframeElement = document.createElement("iframe");
+                    iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
+                    iframeElement.setAttribute("frameborder","0")
+                    iframeElement.setAttribute("allowtransparency","true")
+                    iframeElement.setAttribute("loading","lazy")
+                    iframeElement.setAttribute("width","100%")
+                    iframeElement.setAttribute("height","100%")
+                    iframeElement.setAttribute("title",`form-${conf?.formId}`)
+                    iframeElement.style.minHeight = "280px"
+                    divToSet.appendChild(iframeElement);
+                    if(conf?.form_type){
+                        document.body.appendChild(divToSet)
+                        if(conf?.form_type == "popup"){
+                            document.body.appendChild(overlay)
+                        }
+                    }else{
+                        divToSet.style.width = '100%';
+                        divToSet.style.height = '100%';
+                        element.insertAdjacentElement('afterend', divToSet);
+                    }
+                } else {
+                    console.log('content not loaded as parent window was resized.');
                 }
-            }else{
-                divToSet.style.width = '100%';
-                divToSet.style.height = '100%';
-                element.insertAdjacentElement('afterend', divToSet);
-            }
+            });
         }else{
             console.log('element not found');
         }
     });
 }
 function createCalendar(conf) {
-    window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener('load', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if(element){
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
-            div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
-            allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
+            isParentWindowResized().then(resized => {
+                if (!resized) {
+                    div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+                                allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
+                } else {
+                    console.log('content not loaded as parent window was resized.');
+                }
+            });
         }else{
             console.log('element not found');
         }
