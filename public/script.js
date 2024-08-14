@@ -190,7 +190,7 @@ function createCalendar(conf) {
             });
 
             // Fallback: Load after a delay if no interaction occurs
-            setTimeout(triggerLoad, 5000); // Adjust this delay as needed
+            // setTimeout(triggerLoad, 5000); // Adjust this delay as needed
             
         }else{
             console.log('element not found');
