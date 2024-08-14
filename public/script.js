@@ -170,16 +170,22 @@ function createCalendar(conf) {
         div.appendChild(iframe);
     }
 
-
     window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if (element) {
-            if ('requestIdleCallback' in window) {
-                // Use requestIdleCallback to load the iframe when the browser is idle
-                requestIdleCallback(loadIframe, { timeout: 3000 }); // Set timeout to ensure it loads within 3 seconds
-            }
-            
+            // Use Intersection Observer for early triggering
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadIframe();
+                        observer.unobserve(entry.target); // Stop observing once iframe is loaded
+                    }
+                });
+            }, { rootMargin: "200px 0px" }); // Load 200px before the element enters the viewport
+
+            // Observe the element for early triggering
+            observer.observe(element);
         }else{
             console.log('element not found');
         }
