@@ -174,23 +174,13 @@ function createCalendar(conf) {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if (element) {
-            // Trigger load on user interaction
-            let loaded = false;
-
-            function triggerLoad() {
-                if (!loaded) {
-                    loadIframe();
-                    loaded = true;
-                }
+            if ('requestIdleCallback' in window) {
+                // Use requestIdleCallback to load the iframe when the browser is idle
+                requestIdleCallback(loadIframe, { timeout: 3000 }); // Set timeout to ensure it loads within 3 seconds
+            } else {
+                // Fallback to a delayed load if requestIdleCallback is not supported
+                setTimeout(loadIframe, 3000); // 3 seconds delay
             }
-
-            // Add event listeners for user interactions
-            ['click', 'scroll', 'mousemove', 'touchstart'].forEach(event => {
-                window.addEventListener(event, triggerLoad);
-            });
-
-            // Fallback: Load after a delay if no interaction occurs
-            // setTimeout(triggerLoad, 5000); // Adjust this delay as needed
             
         }else{
             console.log('element not found');
