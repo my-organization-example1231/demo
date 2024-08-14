@@ -1,4 +1,4 @@
-const DOMAIN = "crmone.com"
+// const DOMAIN = "crmone.com"
 function isParentWindowResized() {
     var initialWidth = window.innerWidth;
     var initialHeight = window.innerHeight;
@@ -128,7 +128,7 @@ function createForm(conf) {
             }
             const divToSet = conf?.form_type == "popup" ? dialog : div;
             var iframeElement = document.createElement("iframe");
-            iframeElement.setAttribute("src",`https://form.${DOMAIN}/form/${conf?.formId}`)
+            iframeElement.setAttribute("src",`https://form.crmone.com/form/${conf?.formId}`)
             iframeElement.setAttribute("frameborder","0")
             iframeElement.setAttribute("allowtransparency","true")
             iframeElement.setAttribute("loading","lazy")
@@ -158,7 +158,7 @@ function createCalendar(conf) {
         const div = document.createElement('div');
         div.style.height = '100%';
         element.insertAdjacentElement('afterend', div);
-        div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+        div.innerHTML = `<iframe src=https://calendar.crmone.com/calendar/${conf?.calendarId} frameborder="0"
         allowtransparency="true" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
     }
     // window.addEventListener('DOMContentLoaded', function () {
@@ -167,7 +167,7 @@ function createCalendar(conf) {
     //         const div = document.createElement('div');
     //         div.style.height = '100%';
     //         element.insertAdjacentElement('afterend', div);
-    //         div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+    //         div.innerHTML = `<iframe src=https://calendar.crmone.com/calendar/${conf?.calendarId} frameborder="0"
     //         allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
     //     }else{
     //         console.log('element not found');
@@ -182,7 +182,7 @@ function createSurvey(conf) {
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
-            div.innerHTML = `<iframe src=https://survey.${DOMAIN}/survey/${conf?.surveyId} frameborder="0"
+            div.innerHTML = `<iframe src=https://survey.crmone.com/survey/${conf?.surveyId} frameborder="0"
                         allowtransparency="true" loading="lazy" width="100%" height="100%" title="survey-${conf?.surveyId}"></iframe>`;
 
         }else{
@@ -210,7 +210,7 @@ function createBot(conf) {
         let query = contactDetail ? `?contactDetail=${encodeURIComponent(contactDetail)}`  : "" 
         
         div.innerHTML = `
-                        <iframe id='chatbot-iframe' src='https://chatbot.${DOMAIN}/chatbot/${conf?.botId}${query}'  
+                        <iframe id='chatbot-iframe' src='https://chatbot.crmone.com/chatbot/${conf?.botId}${query}'  
                             frameborder="0" allowtransparency="true" height="100%" width="100%">
                         </iframe>
                         `;
