@@ -159,7 +159,7 @@ function createCalendar(conf) {
         div.style.height = '100%';
         element.insertAdjacentElement('afterend', div);
         div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
-        allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
+        allowtransparency="true" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
     }
     // window.addEventListener('DOMContentLoaded', function () {
     //     var element = conf.callingElement;
