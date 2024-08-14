@@ -18,7 +18,7 @@ function isParentWindowResized() {
     });
 }
 function createForm(conf) {
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf?.callingElement;
         const mode = conf?.mode || "trendev";
         if(element || conf?.form_type){
@@ -158,7 +158,7 @@ function createForm(conf) {
     });
 }
 function createCalendar(conf) {
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if(element){
@@ -179,7 +179,7 @@ function createCalendar(conf) {
     });
 }
 function createSurvey(conf) {
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if(element){
