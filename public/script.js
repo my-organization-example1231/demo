@@ -153,19 +153,26 @@ function createForm(conf) {
     });
 }
 function createCalendar(conf) {
-    window.addEventListener('DOMContentLoaded', function () {
-        var element = conf.callingElement;
-        const mode = conf?.mode || "trendev";
-        if(element){
-            const div = document.createElement('div');
-            div.style.height = '100%';
-            element.insertAdjacentElement('afterend', div);
-            div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
-            allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
-        }else{
-            console.log('element not found');
-        }
-    });
+    var element = conf.callingElement;
+    if(element){
+        const div = document.createElement('div');
+        div.style.height = '100%';
+        element.insertAdjacentElement('afterend', div);
+        div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+        allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
+    }
+    // window.addEventListener('DOMContentLoaded', function () {
+    //     var element = conf.callingElement;
+    //     if(element){
+    //         const div = document.createElement('div');
+    //         div.style.height = '100%';
+    //         element.insertAdjacentElement('afterend', div);
+    //         div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+    //         allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
+    //     }else{
+    //         console.log('element not found');
+    //     }
+    // });
 }
 function createSurvey(conf) {
     window.addEventListener('DOMContentLoaded', function () {
