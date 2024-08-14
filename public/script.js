@@ -153,56 +153,15 @@ function createForm(conf) {
     });
 }
 function createCalendar(conf) {
-    function loadIframe() {
-        const div = document.createElement('div');
-        div.style.height = '100%';
-        conf.callingElement.insertAdjacentElement('afterend', div);
-        
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
-        iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('allowtransparency', 'true');
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.title = `calendar-${conf?.calendarId}`;
-        iframe.loading = 'lazy';
-        
-        div.appendChild(iframe);
-    }
-
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
-        if (element) {
+        if(element){
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
-
-            // Create a placeholder div for the iframe
-            const placeholder = document.createElement('div');
-            placeholder.style.height = '100%';
-            div.appendChild(placeholder);
-
-            // Set up the Intersection Observer
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Create and load the iframe when the element is in view
-                        const iframe = document.createElement('iframe');
-                        iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
-                        iframe.frameBorder = "0";
-                        iframe.allowTransparency = "true";
-                        iframe.loading = "lazy";
-                        iframe.width = "100%";
-                        iframe.height = "100%";
-                        iframe.title = `calendar-${conf?.calendarId}`;
-                        placeholder.replaceWith(iframe); // Replace the placeholder with the iframe
-                        observer.unobserve(div); // Stop observing once the iframe is loaded
-                    }
-                });
-            }, { rootMargin: "200px 0px" }); // Adjust rootMargin as needed
-
-            observer.observe(div); // Start observing the div
+            div.innerHTML = `<iframe src=https://calendar.${DOMAIN}/calendar/${conf?.calendarId} frameborder="0"
+            allowtransparency="true" loading="lazy" width="100%" height="100%" title="calendar-${conf?.calendarId}"></iframe>`;
         }else{
             console.log('element not found');
         }
