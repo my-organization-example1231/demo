@@ -170,7 +170,7 @@ function createCalendar(conf) {
         div.appendChild(iframe);
     }
 
-    window.addEventListener('DOMContentLoaded', function () {
+    window.addEventListener('load', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if (element) {
