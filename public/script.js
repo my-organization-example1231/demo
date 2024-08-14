@@ -170,27 +170,17 @@ function createCalendar(conf) {
         div.appendChild(iframe);
     }
 
-    function triggerLoad() {
-        // Load the iframe when the browser is idle
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(loadIframe, { timeout: 3000 });
-        } else {
-            setTimeout(loadIframe, 3000); // Fallback to timeout if not supported
-        }
-    }
 
     window.addEventListener('DOMContentLoaded', function () {
-        const element = conf.callingElement;
-
+        var element = conf.callingElement;
+        const mode = conf?.mode || "trendev";
         if (element) {
-            // Attempt to load the iframe on user interaction (scroll, click, etc.)
-            ['click', 'scroll', 'mousemove', 'touchstart'].forEach(event => {
-                window.addEventListener(event, triggerLoad, { once: true });
-            });
-
-            // As a final fallback, load the iframe after a short delay
-            setTimeout(triggerLoad, 5000); // 5 seconds delay
-        } else {
+            if ('requestIdleCallback' in window) {
+                // Use requestIdleCallback to load the iframe when the browser is idle
+                requestIdleCallback(loadIframe, { timeout: 3000 }); // Set timeout to ensure it loads within 3 seconds
+            }
+            
+        }else{
             console.log('element not found');
         }
     });
