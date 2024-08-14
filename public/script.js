@@ -153,7 +153,7 @@ function createForm(conf) {
     });
 }
 function createCalendar(conf) {
-    window.addEventListener('load', function () {
+    window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
 
@@ -185,8 +185,9 @@ function createCalendar(conf) {
                     }
                 });
             }, { rootMargin: "200px 0px" }); // Adjust rootMargin as needed
-            
-            observer.observe(div); // Start observing the div
+            setTimeout(() => {
+                observer.observe(div); // Start observing the div
+            },1000)
         } else {
             console.log('element not found');
         }
