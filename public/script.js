@@ -174,18 +174,35 @@ function createCalendar(conf) {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if (element) {
-            // Use Intersection Observer for early triggering
+            const div = document.createElement('div');
+            div.style.height = '100%';
+            element.insertAdjacentElement('afterend', div);
+
+            // Create a placeholder div for the iframe
+            const placeholder = document.createElement('div');
+            placeholder.style.height = '100%';
+            div.appendChild(placeholder);
+
+            // Set up the Intersection Observer
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        loadIframe();
-                        observer.unobserve(entry.target); // Stop observing once iframe is loaded
+                        // Create and load the iframe when the element is in view
+                        const iframe = document.createElement('iframe');
+                        iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
+                        iframe.frameBorder = "0";
+                        iframe.allowTransparency = "true";
+                        iframe.loading = "lazy";
+                        iframe.width = "100%";
+                        iframe.height = "100%";
+                        iframe.title = `calendar-${conf?.calendarId}`;
+                        placeholder.replaceWith(iframe); // Replace the placeholder with the iframe
+                        observer.unobserve(div); // Stop observing once the iframe is loaded
                     }
                 });
-            }, { rootMargin: "200px 0px" }); // Load 200px before the element enters the viewport
+            }, { rootMargin: "200px 0px" }); // Adjust rootMargin as needed
 
-            // Observe the element for early triggering
-            observer.observe(element);
+            observer.observe(div); // Start observing the div
         }else{
             console.log('element not found');
         }
