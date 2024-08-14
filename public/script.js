@@ -253,9 +253,19 @@ function createBot(conf) {
         loadBot()
         return;
     }
+    // Intersection Observer API to load the bot when in view
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                loadBot();
+                observer.unobserve(entry.target); // Stop observing after loading the bot
+            }
+        });
+    }, { rootMargin: "0px 0px 200px 0px" }); // Adjust rootMargin as needed
 
     window.addEventListener('DOMContentLoaded', function () {
-        loadBot()
+        const targetElement = document.body; // Observing the body to trigger the bot load
+        observer.observe(targetElement);
     });
 }
 
