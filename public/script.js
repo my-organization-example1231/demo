@@ -153,29 +153,39 @@ function createForm(conf) {
     });
 }
 function createCalendar(conf) {
+    function loadIframe() {
+        const div = document.createElement('div');
+        div.style.height = '100%';
+        conf.callingElement.insertAdjacentElement('afterend', div);
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowtransparency', 'true');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.title = `calendar-${conf?.calendarId}`;
+        iframe.loading = 'lazy';
+        
+        div.appendChild(iframe);
+    }
+
     window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
-        if(element){
-            const div = document.createElement('div');
-            div.style.height = '100%';
-            element.insertAdjacentElement('afterend', div);
-            // Initial lazy loading with a placeholder
-            const iframe = document.createElement('iframe');
-            iframe.src = ''; // Initially empty to prevent immediate load
-            iframe.setAttribute('loading', 'lazy');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allowtransparency', 'true');
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.title = `calendar-${conf?.calendarId}`;
-            div.appendChild(iframe);
+        if (element) {
+            // Use Intersection Observer for early triggering
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadIframe();
+                        observer.unobserve(entry.target); // Stop observing once iframe is loaded
+                    }
+                });
+            }, { rootMargin: "200px 0px" }); // Load 200px before the element enters the viewport
 
-            // Early triggering of iframe load after a short delay
-            setTimeout(function() {
-                iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
-            }, 2000); // 2 seconds delay, adjust as necessary
-           
+            // Observe the element for early triggering
+            observer.observe(element);
         }else{
             console.log('element not found');
         }
