@@ -185,9 +185,9 @@ function createCalendar(conf) {
             }
 
             // Add event listeners for user interactions
-            // ['click', 'scroll', 'mousemove', 'touchstart'].forEach(event => {
-            //     window.addEventListener(event, triggerLoad);
-            // });
+            ['click', 'scroll', 'mousemove', 'touchstart'].forEach(event => {
+                window.addEventListener(event, triggerLoad);
+            });
 
             // Fallback: Load after a delay if no interaction occurs
             // setTimeout(triggerLoad, 5000); // Adjust this delay as needed
