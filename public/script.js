@@ -156,39 +156,27 @@ function createCalendar(conf) {
     window.addEventListener('DOMContentLoaded', function () {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
-
-        if (element) {
+        if(element){
             const div = document.createElement('div');
             div.style.height = '100%';
             element.insertAdjacentElement('afterend', div);
+            // Initial lazy loading with a placeholder
+            const iframe = document.createElement('iframe');
+            iframe.src = ''; // Initially empty to prevent immediate load
+            iframe.setAttribute('loading', 'lazy');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allowtransparency', 'true');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.title = `calendar-${conf?.calendarId}`;
+            div.appendChild(iframe);
 
-            // Create a placeholder div for the iframe
-            const placeholder = document.createElement('div');
-            placeholder.style.height = '100%';
-            div.appendChild(placeholder);
-
-            // Set up the Intersection Observer
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Create and load the iframe when the element is in view
-                        const iframe = document.createElement('iframe');
-                        iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
-                        iframe.frameBorder = "0";
-                        iframe.allowTransparency = "true";
-                        iframe.loading = "lazy";
-                        iframe.width = "100%";
-                        iframe.height = "100%";
-                        iframe.title = `calendar-${conf?.calendarId}`;
-                        placeholder.replaceWith(iframe); // Replace the placeholder with the iframe
-                        observer.unobserve(div); // Stop observing once the iframe is loaded
-                    }
-                });
-            }, { rootMargin: "200px 0px" }); // Adjust rootMargin as needed
-            setTimeout(() => {
-                observer.observe(div); // Start observing the div
-            },1000)
-        } else {
+            // Early triggering of iframe load after a short delay
+            setTimeout(function() {
+                iframe.src = `https://calendar.${DOMAIN}/calendar/${conf?.calendarId}`;
+            }, 2000); // 2 seconds delay, adjust as necessary
+           
+        }else{
             console.log('element not found');
         }
     });
@@ -254,19 +242,9 @@ function createBot(conf) {
         loadBot()
         return;
     }
-    // Intersection Observer API to load the bot when in view
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                loadBot();
-                observer.unobserve(entry.target); // Stop observing after loading the bot
-            }
-        });
-    }, { rootMargin: "0px 0px 200px 0px" }); // Adjust rootMargin as needed
 
     window.addEventListener('DOMContentLoaded', function () {
-        const targetElement = document.body; // Observing the body to trigger the bot load
-        observer.observe(targetElement);
+        loadBot()
     });
 }
 
