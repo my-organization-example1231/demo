@@ -174,18 +174,24 @@ function createCalendar(conf) {
         var element = conf.callingElement;
         const mode = conf?.mode || "trendev";
         if (element) {
-            // Use Intersection Observer for early triggering
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        loadIframe();
-                        observer.unobserve(entry.target); // Stop observing once iframe is loaded
-                    }
-                });
-            }, { rootMargin: "200px 0px" }); // Load 200px before the element enters the viewport
+            // Trigger load on user interaction
+            let loaded = false;
 
-            // Observe the element for early triggering
-            observer.observe(element);
+            function triggerLoad() {
+                if (!loaded) {
+                    loadIframe();
+                    loaded = true;
+                }
+            }
+
+            // Add event listeners for user interactions
+            ['click', 'scroll', 'mousemove', 'touchstart'].forEach(event => {
+                window.addEventListener(event, triggerLoad);
+            });
+
+            // Fallback: Load after a delay if no interaction occurs
+            setTimeout(triggerLoad, 5000); // Adjust this delay as needed
+            
         }else{
             console.log('element not found');
         }
