@@ -95,7 +95,7 @@
             .split('; ')
             .find(row => row.startsWith(COOKIE_NAME + '='))
             ?.split('=')[1];
-        console.log("inside scriptttt",cookieValue)
+        console.log("inside scriptttt",cookieValue);
 
         const existingId = cookieValue && JSON.parse(cookieValue).contact_id;
 
