@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <script type="text/javascript" src="script.js"></script>
+        <script type="text/javascript" src="http://localhost:3000/script.js" data-business-id="HY7IAUl86AUMMqVbzGKn"></script>
       </head>
       <body className={inter.className}>
         {children}
