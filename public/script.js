@@ -44,7 +44,7 @@
     async function trackEvent(eventType, data = {}) {
         const urlParams = getUrlParameters();
         const headers = getHeaders();
-        const currentUrl = window.location.href;
+        const currentUrl = (window.location.host.includes('filesusr.com')) ? document.referrer : window.location.href;
 
         const cookieValue = document.cookie
             .split('; ')
@@ -95,7 +95,6 @@
             .split('; ')
             .find(row => row.startsWith(COOKIE_NAME + '='))
             ?.split('=')[1];
-        console.log("inside scriptttt",cookieValue);
 
         const existingId = cookieValue && JSON.parse(cookieValue).contact_id;
 
